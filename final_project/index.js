@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const session = require("express-session");
 const customer_routes = require("./router/auth_users.js").authenticated;
 const genl_routes = require("./router/general.js").general;
+const secretKey = "mysecretkey";
 
 const app = express();
 
@@ -18,7 +19,9 @@ app.use(
 );
 
 app.use("/customer/auth/*", function auth(req, res, next) {
-  //Write the authenication mechanism here
+  const data = jwt.verify(req.session.secret, secretKey);
+  req.user = data;
+  next();
 });
 
 const PORT = 5000;
