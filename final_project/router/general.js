@@ -11,7 +11,7 @@ public_users.post("/register", (req, res) => {
       .status(400)
       .json({ error: "Username and password are required" });
   }
-  if (!isValid(username)) {
+  if (isValid(username)) {
     return res.status(409).json({ message: "Username already exists" });
   }
   const newUser = { username, password };
@@ -22,7 +22,7 @@ public_users.post("/register", (req, res) => {
 // Get the book list available in the shop
 public_users.get("/", function (req, res) {
   //Write your code here
-  return res.status(300).json(JSON.stringify(books));
+  return res.status(300).json(books);
 });
 
 // Get book details based on ISBN
